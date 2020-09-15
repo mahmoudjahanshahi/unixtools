@@ -1,0 +1,29 @@
+#!/bin/sh
+mkdir ~/projects/unix/1_foundations/Desktop
+cd ~/projects/unix/1_foundations/Desktop
+rm -r *
+curl https://www.spinellis.gr/unix/data/hier.txt > ~/projects/unix/1_foundations/newfile
+for i in $(seq 1 $(cat ../newfile | wc -l)) ; do
+    text=$(cat ../newfile | sed -n ${i}p);
+    echo $text;
+    if [[ $text == create-directory* ]] ;
+    then
+	mkdir $( echo $text | awk '{print $2}');
+	echo created dir $text;
+    fi
+    if [[ $text == delete-directory* ]] ;
+    then
+	rmdir $( echo $text | awk '{print $2}');
+	echo deleted dir $text;
+    fi
+    if [[ $text == create-file* ]];
+    then
+	touch $( echo $text | awk '{print $2}');
+	echo created file $text;
+    fi
+    if [[ $text == delete-file* ]];
+    then
+	rm $( echo $text | awk '{print $2}');
+	echo deleted file $text;
+    fi
+done
