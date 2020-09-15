@@ -1,0 +1,7 @@
+Q1
+curl -s https://www.spinellis.gr/unix/data/hier.txt? | wc -c
+
+Q2
+WGE='https://www.wikidata.org/w/api.php?action=wbgetentities&format=json'
+ID=Q111
+curl -s "$WGE&ids=$ID" | jq -r .entities.$ID.claims.P2067[].mainsnak.datavalue.value.amount
