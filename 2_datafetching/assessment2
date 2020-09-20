@@ -1,0 +1,14 @@
+Q1
+for i in $(seq 1 9); do
+    curl -Ls https://www.spinellis.gr/unix/data/assets/part-${i}.tar.gz |
+    tar -tzf -
+done |
+wc -l
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/kernel.tar.gz | tar -xzf - ;
+find . -type f -newermm events/core.c | wc -l
+
+Q3
+git clone https://github.com/dspinellis/git-issue;
+git log --pretty=format:%cs | grep 2019-08 | wc -l

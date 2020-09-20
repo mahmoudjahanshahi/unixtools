@@ -1,0 +1,10 @@
+Q1
+seq 7 0.3 170 | wc -l
+
+Q2
+dd if=/dev/zero of=newfile bs=32k count=12
+
+Q3
+car=$(cat words | wc -c)
+wr=$(cat words | wc -w)
+expr $car / $wr

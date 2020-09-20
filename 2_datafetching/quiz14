@@ -1,0 +1,27 @@
+Q1
+git log --pretty=format:%an |
+grep "Andrea Aime"|
+uniq -c
+
+Q2
+find . -type f -name '*.java' |
+while read f ; do
+  echo -n "$f "
+  git log --follow $f | wc -l
+done |
+sort -k 2nr |
+head
+
+Q3
+date -d @$(
+  git blame --line-porcelain src/main/java/org/umlgraph/doclet/StringUtil.java |
+  grep 'author-time*' |
+  awk '{print $2}' |
+  sort |
+  head -n 1
+)
+
+Q4
+sha1=d0ede46da8aaff13bccd1f2b3fd201bb383d68f9 ;
+file=src/main/java/org/umlgraph/doclet/StringUtil.java ;
+git show $sha1:$file | wc -c
