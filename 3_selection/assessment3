@@ -1,0 +1,76 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/filelist.gz |
+gzip -dc - |
+grep '^lib.*\.gz$' |
+wc -l
+
+Q2
+curl https://www.spinellis.gr/unix/data/socketpipe.o.gz |
+gzip -dc > file1 ;
+
+nm file1 |
+grep ' U ' |
+while read -r line; do
+    echo $line;
+done |
+cut -d' ' -f 2 |
+cut -d @ -f 1 |
+rev |
+cut -d _ -f 1 |
+rev > U1 ;
+
+curl https://www.spinellis.gr/unix/data/a.out > file2 ;
+
+nm file2 |
+grep ' U ' |
+while read -r line; do
+    echo $line;
+done |
+cut -d' ' -f 2 |
+cut -d @ -f 1 |
+rev |
+cut -d _ -f 1 |
+rev > U2 ;
+
+Q3
+curl -Ls https://www.spinellis.gr/unix/data/iplist-1 |
+egrep '^(.*)\..*\.\1$' |
+wc -l
+
+Q4
+git blame $file |
+cut -d'(' -f 2 |
+cut -d')' -f 1 |
+rev |
+cut -d' ' -f 2 |
+rev |
+sort |
+uniq -c |
+sort -nr
+
+Q5
+find . -type f |
+grep '\-..\.md$' |
+while read -r line; do
+    file=$line;
+    git blame $file |
+    cut -d'(' -f 2 |
+    cut -d')' -f 1 |
+    rev |
+    cut -d' ' -f 2 |
+    rev |
+    sort |
+    uniq -c |
+    sort -nr |
+    head -1 ;
+done |
+cut -d' ' -f 6 |
+sort |
+uniq -c
+
+Q6
+curl -Ls https://www.spinellis.gr/unix/data/ps.out |
+cut -d':' -f 3 |
+cut -d' ' -f 2 |
+grep R |
+wc -l

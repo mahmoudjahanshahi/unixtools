@@ -1,0 +1,10 @@
+Q5
+curl https://www.spinellis.gr/unix/data/a.out > file ;
+nm file |
+cut -d' ' -f 2 |
+grep t |
+wc -l
+
+Q6
+curl https://www.spinellis.gr/unix/data/otherwords > words ;
+egrep '^(.).*\1$' words | wc -l

@@ -1,0 +1,2 @@
+Q2
+egrep '^.{10}$' /usr/share/dict/words | egrep '(.)\1(.)\2(.)\3'
