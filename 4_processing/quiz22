@@ -1,0 +1,29 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/somewords |
+sort |
+head
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/somewords |
+sort -r |
+head
+
+Q3
+curl -Ls https://www.spinellis.gr/unix/data/somewords |
+sort -u |
+wc -l
+
+Q4
+curl -Ls https://www.spinellis.gr/unix/data/country-population |
+sort -t : -k 4rn |
+head
+
+Q5
+curl -Ls https://www.spinellis.gr/unix/data/country-population |
+sort -t : -k 5n |
+head
+
+Q6
+curl -Ls https://www.spinellis.gr/unix/data/du |
+sort -t , -k 2rh |
+head
