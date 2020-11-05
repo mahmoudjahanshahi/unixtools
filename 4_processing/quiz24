@@ -1,0 +1,9 @@
+Q1
+#!/usr/bin/sed -f
+s/xyzzy/M/g
+s/blah/H/g
+
+cat $(ls) | ../quiz24_Q1.sed
+
+Q2
+seq 0 64 | sed -n 's/\.*/2^&/p' | bc | wc -c

@@ -1,0 +1,16 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/somewords |
+sed -n 's/\(.*\)\(..$\)/\2/p' |
+sort |
+uniq -c |
+sort -nr |
+head
+
+Q2
+#!/usr/bin/sed -f
+:redo
+/^[^n]*$/ {
+            N
+            s/\n//
+            b redo
+}

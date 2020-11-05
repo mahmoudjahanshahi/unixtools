@@ -1,0 +1,11 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/nasa-web-log.gz |
+gzip -d |
+awk '{if ($6 == 200) size += $7} END {print size}' -
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/nasa-web-log.gz |
+gzip -d |
+awk '{if ($6==200) size[$1] += $7} END { for (i in size) print i, size[i]}' - |
+sort -k 2nr |
+head
