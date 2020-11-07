@@ -1,0 +1,19 @@
+Q1
+echo 'Wizds yza leka Layvas; ynd whaza thau mist ybiond, Moch Fzoet if Sansa banayth es zyzalu fiond.' |
+tr z r |
+tr aeiouy eiouya |
+tr ' ' '\n' |
+cat -n
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/text.ebcdic > f;
+recode EBCDIC..ASCII <f >newASCII;
+cat newASCII
+
+Q3
+curl -Ls https://www.spinellis.gr/unix/data/socketpipe.c-64eddd |
+sed -n 's/./&\n/gp' |
+sort |
+uniq -c |
+sort -n |
+head

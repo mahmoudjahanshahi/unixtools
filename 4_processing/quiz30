@@ -1,0 +1,17 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/morewords |
+rev |
+sort |
+comm -12 - <(
+     curl -Ls https://www.spinellis.gr/unix/data/morewords |
+     sort
+     ) |
+wc -l
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/queue |
+tac |
+paste - <(
+      curl -Ls https://www.spinellis.gr/unix/data/exit
+      ) |
+awk '{if ($1 != $2) print $1 , $2}'

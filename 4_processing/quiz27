@@ -1,0 +1,15 @@
+Q1
+diff -u <(
+     curl -Ls https://www.spinellis.gr/unix/data/socketpipe.c-64eddd
+     ) <(
+     curl -Ls https://www.spinellis.gr/unix/data/socketpipe.c-b26bc3
+     ) |
+grep '^+' |
+wc -l
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/socketpipe.c-b26bc3 > f;
+curl -Ls https://www.spinellis.gr/unix/data/patch |
+patch f -;
+cat f |
+wc -c
