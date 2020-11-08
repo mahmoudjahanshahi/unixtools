@@ -1,0 +1,102 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/precip |
+sort -t , -k 2n |
+head;
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/quakes |
+cut -d ' ' -f 4 |
+sort |
+uniq -c |
+sort -k 1nr |
+head;
+
+Q3
+curl -Ls https://www.spinellis.gr/unix/data/quakes |
+awk '{if ($4 == 5) print $3}' |
+sort -nr |
+head;
+
+Q4
+curl -Ls https://www.spinellis.gr/unix/data/presidents |
+awk '{if ($5 < $2) count += 1 } END {print count}';
+
+Q5
+curl -Ls https://www.spinellis.gr/unix/data/state-area |
+sort -t , -k 1 |
+join -t ,  - <(
+     curl -Ls https://www.spinellis.gr/unix/data/state-population
+) |
+sort -t , -k 1) |
+awk -F , '{ den = $3/$2 ; print $1","den}' |
+sort -t , -k 2nr |
+head;
+
+Q6
+comm -23 <(
+     curl -Ls https://www.spinellis.gr/unix/data/iplist-1 | sort | uniq
+     ) <(
+     curl -Ls https://www.spinellis.gr/unix/data/iplist-2 | sort | uniq
+) |
+wc -l;
+
+Q7
+curl -Ls https://www.spinellis.gr/unix/data/toc | sed -n 's/.*\. //p' | wc -c
+
+Q8
+curl -Ls https://www.spinellis.gr/unix/data/nasa-web-log.gz |
+gzip -d |
+awk -F '\t' '{print $1","$7}' |
+awk -F . '{print $NF}' |
+awk -F , '{size[$1] += $2} END {for (i in size) print i,size[i]}' |
+sort -k 2nr |
+head;
+
+Q9
+curl -Ls https://www.spinellis.gr/unix/data/socketpipe.c-64eddd > org;
+curl -Ls https://www.spinellis.gr/unix/data/socketpipe.c-mary > mary;
+curl -Ls https://www.spinellis.gr/unix/data/socketpipe.c-b26bc3 > neworg;
+diff -u org mary > patch;
+patch neworg < patch;
+cat neworg | wc -c;
+
+Q10
+curl -Ls https://www.spinellis.gr/unix/data/unix.html.gz |
+gzip -d |
+sed -n 's/<\/[a-zA-Z]*>/\n&\n/gp' |
+grep '^</.*>$' |
+sed -n 's/^..//p' |
+sed -n 's/.$//p' |
+sort |
+uniq |
+comm -23 - <(
+     curl -Ls https://www.spinellis.gr/unix/data/allowed-tags | sort | uniq
+) |
+head;
+
+Q11
+curl -Ls https://www.spinellis.gr/unix/data/Troilus-Book-I.txt | sed -n 's/[^a-zA-Z]//gp' | sed -n 's/..$/ &/p' | cut -d ' ' -f 2 > f2;
+curl -Ls https://www.spinellis.gr/unix/data/Troilus-Book-I.txt | sed -n 's/[^a-zA-Z]//gp' | sed -n 's/...$/ &/p' | cut -d ' ' -f 2 > f3;
+curl -Ls https://www.spinellis.gr/unix/data/Troilus-Book-I.txt | sed -n 's/[^a-zA-Z]//gp' | sed -n 's/....$/ &/p' | cut -d ' ' -f 2 > f4;
+cat f2 f3 f4 | sort | uniq -c | sort -k 1nr;
+
+Q12
+curl -Ls https://www.spinellis.gr/unix/data/secret |
+openssl des-ofb -d -base64 -pbkdf2 -k jdhr74jdxxhyFG;
+
+Q13
+wget -q -O file.mp3 https://www.spinellis.gr/unix/data/reversed.mp3;
+lame --decode file.mp3 file.wav ;
+sox file.wav revfile.wav reverse;
+
+Q14
+for i in *.png; do
+    name=$(basename $i .png).pnm;
+    pngtopnm $i > $name ;
+done;
+
+for i in $(seq 0 9); do
+    pnmcat -lr $(for j in $(seq 0 9); do echo image_part_0"$i"_0"$j".pnm; done) > $i ;
+done;
+
+pnmcat -tb $(echo $(seq 0 9)) > image;

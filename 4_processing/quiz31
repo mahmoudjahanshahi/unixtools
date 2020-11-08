@@ -1,0 +1,27 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/dependencies.gz |
+gzip -d |
+tsort |
+head
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/dependencies.gz | gzip -d > file ;
+
+----- Solution1 -----
+curl -Ls https://www.spinellis.gr/unix/data/dependencies.gz | gzip -d > file ;
+cat file | awk '{if ($1 == "User[ship]") print $2}' | sort | uniq > results;
+while
+	true;
+do
+	cat results | while read -r line ; do cat file | awk -v line="$line" '{if ($1 == line) print $2}' ; done | sort | uniq > tmp1 ;
+	comm -13 <(cat results | sort) tmp1 > tmp2 ;
+	[[ $(cat tmp2 | wc -l) -gt 0 ]] || break;
+	cat tmp2 >> results ;
+done ;
+rm tmp* ;
+cat results | wc -l ;
+
+----- Solution2 -----
+cat file | sed -n 's/ /\n/p' | sed -n 's/^/"/g ; s/$/" ;/p' | sort | uniq > nodes ;
+cat file | sed -n 's/^/"/g ; s/ /" -> "/g ; s/$/" ;/gp' | sort | uniq > edges ;
+echo "digraph Q2 {" | cat - nodes edges <(echo }) > graph.dot ;
