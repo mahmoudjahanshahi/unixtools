@@ -1,0 +1,10 @@
+Q1
+curl -Ls https://www.spinellis.gr/unix/data/otherwords |
+tail -1
+
+Q2
+curl -Ls https://www.spinellis.gr/unix/data/star-wars-actors |
+cut -d ' ' -f 1 |
+sort |
+uniq |
+wc -l
